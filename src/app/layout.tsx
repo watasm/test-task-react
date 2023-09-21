@@ -1,6 +1,11 @@
-import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { ConfigProvider, theme } from 'antd'
+
+import AntdRegistry from '@/lib/Antd/AntdRegistry'
+import LeftMenu from '@/components/LeftMenu'
+
+import '@/styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +21,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AntdRegistry>
+          <ConfigProvider theme={{
+            algorithm: theme.defaultAlgorithm,
+            token: {
+              fontFamily: 'inherit'
+            }
+          }}>
+            <div className='w-full h-screen flex'>
+              <div className='px-2 py-2 border-r'>
+                <LeftMenu />
+              </div>
+              <div className='w-full px-5 py-5'>
+                {children}
+              </div>
+            </div>
+          </ConfigProvider>
+        </AntdRegistry>
+      </body>
     </html>
   )
 }
