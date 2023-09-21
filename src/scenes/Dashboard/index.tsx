@@ -28,7 +28,10 @@ const DashboardScene = () => {
 
         <MainTable />
       </div>
-      <div className={cn(s.rightPanel, "h-full border !border-green-500")}>
+
+      <Divider className='!h-full' type='vertical' />
+
+      <div className={cn(s.rightPanel, "h-full")}>
         <WeekendTable />
 
         <Divider className='!my-3' />

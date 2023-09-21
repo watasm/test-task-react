@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import Providers from '@/providers'
+import LeftMenu from '@/components/LeftMenu'
 
 import '@/styles/globals.css'
 
@@ -20,7 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          {children}
+          <div className='w-full h-full flex'>
+            <LeftMenu />
+            <div className='w-full px-5 py-5'>
+              {children}
+            </div>
+          </div>
         </Providers>
       </body>
     </html>

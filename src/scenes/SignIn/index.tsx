@@ -12,10 +12,12 @@ const SignInScene = () => {
   const [password, setPassword] = useState('adminpass')
 
   const signInHandler = async () => {
-    const res = await fetch("https://service-1-lh4l.onrender.com/api/token/", {
+    const res = await fetch("https://service-1-lh4l.onrender.com/metrics/", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ username, password }),
-      headers: { "Content-Type": "application/json" },
     });
     const user = await res.json();
 
