@@ -1,9 +1,10 @@
 'use client'
 
-import { LeftMenuRoutesTop, LeftMenuRoutesBottom } from "@/constants/leftMenuRoutes";
-import { Menu, MenuProps } from "antd";
-import { SelectInfo } from "antd/es/calendar/generateCalendar";
+import { usePathname } from 'next/navigation'
 import Link from "next/link";
+import { Menu, MenuProps } from "antd";
+
+import { LeftMenuRoutesTop, LeftMenuRoutesBottom } from "@/constants/leftMenuRoutes";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -28,13 +29,18 @@ const itemsBottom: MenuItem[] = LeftMenuRoutesBottom.map(item => {
 })
 
 const LeftMenu = () => {
+  const pathname = usePathname()
+
+  if (pathname === '/sign-in') {
+    return null;
+  }
 
   const onSelectMenuItemHandler = (item: any) => {
     console.log(item);
   }
 
   return (
-    <div className="min-w-[250px] max-w-[250px] h-full flex flex-col justify-between">
+    <div className="sticky top-0 left-0 min-w-[250px] max-w-[250px] h-screen px-2 py-2 flex flex-col justify-between border-r">
       <div>
         {/* <div className="w-full h-10 border border-red-500"></div> */}
         <Menu

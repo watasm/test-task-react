@@ -12,27 +12,11 @@ const StatsCartChart: FC<Props> = ({ width, height }) => {
   const data = [
     {
       type: '1',
-      value: 27,
+      value: 75,
     },
     {
       type: '2',
       value: 25,
-    },
-    {
-      type: '3',
-      value: 18,
-    },
-    {
-      type: '4',
-      value: 15,
-    },
-    {
-      type: '5',
-      value: 10,
-    },
-    {
-      type: '6',
-      value: 5,
     },
   ];
 

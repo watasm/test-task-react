@@ -3,6 +3,10 @@ import cn from 'classnames'
 
 import Header from "./components/Header";
 import Stats from './components/Stats';
+import Demographics from './components/Demographics';
+import MainTable from './components/MainTable';
+import WeekendTable from './components/WeekendTable';
+import SixMonthTable from './components/SixMonthTable';
 
 import s from './style.module.scss';
 
@@ -17,8 +21,20 @@ const DashboardScene = () => {
 
         <Divider className='!my-3' />
 
+        <Demographics />
+
+        <Divider className='!my-3' />
+
+
+        <MainTable />
       </div>
-      <div className={cn(s.rightPanel, "h-full border !border-green-500")}></div>
+      <div className={cn(s.rightPanel, "h-full border !border-green-500")}>
+        <WeekendTable />
+
+        <Divider className='!my-3' />
+
+        <SixMonthTable />
+      </div>
     </div>
   )
 }
