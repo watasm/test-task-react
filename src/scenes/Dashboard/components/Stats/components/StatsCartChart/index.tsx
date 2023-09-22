@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import { Pie } from '@ant-design/plots';
+import { Divider, Progress } from "antd";
 
 type Props = {
   data: {
@@ -58,7 +59,19 @@ const StatsCartChart: FC<Props> = ({ data, width, height }) => {
     },
   };
 
-  return <Pie style={{ width: width, height: height }} {...config} />;
+  return (
+    <div className="w-1/4 flex flex-col items-center gap-1">
+      <Progress size={[90, 90]} type="dashboard" percent={data.percent} />
+
+      <div className="flex items-center">
+        <p>PG-13</p>
+        <Divider className="!h-full" type="vertical" />
+        <p>R</p>
+      </div>
+    </div>
+  )
+
+  // return <Pie style={{ width: width, height: height }} {...config} />;
 }
 
 export default StatsCartChart;

@@ -32,8 +32,8 @@ type DashboardActions = {
 export const useDashboardStore = create<DashboardState & DashboardActions>()(
   devtools((set) => ({
     dataRange: {
-      from: dateNow,
-      end: dateNow.add(7, "day"),
+      from: dayjs().set("month", 0).set("date", 1),
+      end: dateNow,
     },
     demographicsRange: {
       from: 18,

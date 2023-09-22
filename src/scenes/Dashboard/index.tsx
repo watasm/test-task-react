@@ -1,8 +1,8 @@
 'use client'
 
-import { FC, useEffect } from 'react';
-import { Divider } from 'antd';
-import cn from 'classnames'
+import { useRouter } from 'next/navigation';
+import { FC, useEffect, useState } from 'react';
+import { Divider, Spin } from 'antd';
 
 import { useDashboardStore } from '@/stores/dashboard';
 
@@ -13,13 +13,17 @@ import MainTable from './components/MainTable';
 import WeekendTable from './components/WeekendTable';
 import SixMonthTable from './components/SixMonthTable';
 
-import s from './style.module.scss';
-
 
 const DashboardScene: FC = () => {
+  const router = useRouter()
+
   const dataRange = useDashboardStore(state => state.dataRange)
   const setMovies = useDashboardStore(state => state.setMovies)
   const setMetrics = useDashboardStore(state => state.setMetrics)
+
+  const [isFetchingMovies, setIsFetchingMovies] = useState(true)
+  const [isFetchingMetrics, setIsFetchingMetrics] = useState(true)
+
 
   useEffect(() => {
     const getMovies = async () => {
@@ -35,17 +39,14 @@ const DashboardScene: FC = () => {
       console.log('movies', data.data);
 
       if (data.data.code === 'token_not_valid') {
-        //redirect
+        router.push('/sign-in')
       } else {
         setMovies(data.data);
       }
+
+      setIsFetchingMovies(false)
     }
 
-    getMovies()
-  }, [])
-
-
-  useEffect(() => {
     const getMetrics = async () => {
       const res = await fetch(`/api/metrics`, {
         method: "POST",
@@ -61,18 +62,29 @@ const DashboardScene: FC = () => {
       console.log('metrics', data.data);
 
       if (data.data.code === 'token_not_valid') {
-        //redirect
+        router.push('/sign-in')
       } else {
         setMetrics(data.data);
       }
+
+      setIsFetchingMetrics(false)
     }
 
     getMetrics()
+    getMovies()
   }, [dataRange])
 
 
+  if (isFetchingMovies || isFetchingMetrics) {
+    return (
+      <div className='w-full h-screen flex items-center justify-center'>
+        <Spin size='large' />
+      </div>
+    )
+  }
+
   return (
-    <div className="w-full h-full flex gap-5">
+    <div className="w-full h-full px-5 py-5 flex gap-5 desktop:flex-col desktop:gap-2">
       <div className='w-full'>
         <Header />
         <Divider className='!my-3' />
@@ -89,16 +101,18 @@ const DashboardScene: FC = () => {
         <MainTable />
       </div>
 
-      <Divider className='!h-full' type='vertical' />
+      <Divider className='!h-auto desktop:hidden' type='vertical' />
+      <Divider className='!my-0 hidden desktop:block desktop:!mb-1 desktop:!mt-0' type='horizontal' />
 
-      <div className={cn(s.rightPanel, "h-full")}>
+      <div className={"min-w-[300px] w-[300px] h-full desktop:w-full desktop:flex desktop:gap-5 tablet:flex-col tablet:gap-2"}>
         <WeekendTable />
 
-        <Divider className='!my-3' />
+        <Divider className='!my-3 desktop:hidden tablet:block tablet:!mb-1 tablet:!my-0' type='horizontal' />
+        <Divider className='!h-auto hidden desktop:block tablet:hidden' type='vertical' />
 
         <SixMonthTable />
       </div>
-    </div>
+    </div >
   )
 }
 export default DashboardScene;

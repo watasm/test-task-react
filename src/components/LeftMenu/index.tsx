@@ -35,8 +35,13 @@ const LeftMenu = () => {
     return null;
   }
 
-  const onSelectMenuItemHandler = (item: any) => {
-    console.log(item);
+  const onSelectMenuItemHandlerBottom = async () => {
+    await fetch("/api/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
   }
 
   return (
@@ -49,7 +54,6 @@ const LeftMenu = () => {
           mode={"vertical"}
           theme={"light"}
           items={itemsTop}
-          onSelect={onSelectMenuItemHandler}
         />
 
       </div>
@@ -59,7 +63,10 @@ const LeftMenu = () => {
         mode={"vertical"}
         selectable={false}
         theme={"light"}
-        items={itemsBottom} />
+        items={itemsBottom}
+        onClick={onSelectMenuItemHandlerBottom}
+      />
+
     </div>
   )
 }

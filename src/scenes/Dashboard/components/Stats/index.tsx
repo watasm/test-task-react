@@ -1,4 +1,4 @@
-import { Divider } from "antd";
+import { Divider, Typography } from "antd";
 
 import StatsCart from "./components/StatsCart";
 import StatsCartChart from "./components/StatsCartChart";
@@ -11,21 +11,21 @@ const Stats = () => {
     <div className='flex justify-around'>
       <StatsCart
         title={(
-          <h4 className='text-3xl font-medium'>{metrics.indastryBoxOffice}</h4>
+          <h4 className='text-4xl font-semibold'>{metrics.indastryBoxOffice}M</h4>
         )}
         description='Indastry box office'
       />
       <Divider className='!h-auto' type='vertical' />
       <StatsCart
         title={(
-          <h4 className='text-3xl font-medium'>{metrics.val}</h4>
+          <h4 className='text-4xl font-semibold'>{metrics.val}M</h4>
         )}
         description='Val'
       />
       <Divider className='!h-auto' type='vertical' />
       <StatsCart
         title={(
-          <h4 className='text-3xl font-medium'>{metrics.seasomasity}</h4>
+          <h4 className='text-4xl font-semibold'>{metrics.seasomasity}</h4>
         )}
         description='Seasomasity'
       />

@@ -23,9 +23,9 @@ export default function RootLayout({
         <Providers>
           <div className='w-full h-full flex'>
             <LeftMenu />
-            <div className='w-full px-5 py-5'>
+            <main className='w-full'>
               {children}
-            </div>
+            </main>
           </div>
         </Providers>
       </body>
