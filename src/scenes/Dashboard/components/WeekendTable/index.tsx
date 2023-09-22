@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 
 import { useDashboardStore } from "@/stores/dashboard";
 import { sortPriceColumn, sortReleaseColumn, sortTitleColumn } from "../utils/sortHandlers";
+import { getStartAndEndOfWeek } from "../utils/getStartAndEndOfWeek";
 
 type DataType = Movie
 
@@ -44,32 +45,22 @@ const columns: ColumnsType<DataType> = [
 const WeekendTable = () => {
   const movies = useDashboardStore(state => state.movies)
 
+  const startDayWeek = dayjs(getStartAndEndOfWeek()[0])
+  const saturday = dayjs(startDayWeek).add(5, 'day')
+  const sundey = dayjs(startDayWeek).add(6, 'day')
+
   const filteredMovies = useMemo(() => {
-    return movies.sort((a: Movie, b: Movie): number => {
-      const aDate = dayjs(a.release_date);
-      const bDate = dayjs(b.release_date);
+    return movies.filter(movie => {
 
-      const diff = aDate.diff(bDate);
-
-      return diff;
-    }).filter(movie => {
-      const currentYear = dayjs().get('year')
-      const moviewYear = dayjs(movie.release_date).get('year')
-
-      if (currentYear !== moviewYear) {
-        return false;
-      }
-
-      return dayjs(movie.release_date).get('month') >= 5;
+      return dayjs(movie.release_date).isSame(saturday, 'day') || dayjs(movie.release_date).isSame(sundey, 'day');
     })
   }, [movies])
-
 
   return (
     <div className="desktop:w-1/2 tablet:w-full">
       <div className="pt-2 pb-3 flex flex-col items-center">
         <p>WEEKEND</p>
-        <p>9/20 - 9/29</p>
+        <p>{saturday.format('DD/MM')} - {sundey.format('DD/MM')}</p>
       </div>
       <AntTable columns={columns} dataSource={filteredMovies} />
     </div>

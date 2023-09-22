@@ -41,7 +41,7 @@ const DashboardScene: FC = () => {
       if (data.data.code === 'token_not_valid') {
         router.push('/sign-in')
       } else {
-        setMovies(data.data);
+        setMovies([...data.data, { id: data.data.length, description: 'desc', title: 'Iron men 10', mda: 'dfg', price: '56.90', release_date: '2023-09-23' }]);
       }
 
       setIsFetchingMovies(false)
@@ -93,9 +93,9 @@ const DashboardScene: FC = () => {
 
         <Divider className='!my-3' />
 
-        <Demographics />
+        {/* <Demographics /> */}
 
-        <Divider className='!my-3' />
+        {/* <Divider className='!my-3' /> */}
 
 
         <MainTable />

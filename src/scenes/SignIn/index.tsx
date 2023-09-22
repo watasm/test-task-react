@@ -44,7 +44,7 @@ const SignInScene = () => {
         <div className="w-full flex flex-col items-center justify-center gap-5">
           <Input className="!w-[60%]" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
           <Input.Password className="!w-[60%]" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <Button type={'primary'} role='button' loading={loading} disabled={!btnIsActive} onClick={() => signInHandler()}>Sign In</Button>
+          <Button className='bg-blue-600' type={'primary'} role='button' loading={loading} disabled={!btnIsActive} onClick={() => signInHandler()}>Sign In</Button>
         </div>
       </div>
     </div>

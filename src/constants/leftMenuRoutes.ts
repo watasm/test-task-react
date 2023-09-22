@@ -1,8 +1,8 @@
 import {
   LineChartOutlined,
-  HomeOutlined,
-  MehOutlined,
   LogoutOutlined,
+  HeartOutlined,
+  FireOutlined,
 } from "@ant-design/icons";
 
 type Item = {
@@ -22,15 +22,15 @@ export const LeftMenuRoutesTop: Item[] = [
   },
   {
     id: 2,
-    label: "Test 1",
-    icon: HomeOutlined,
-    path: "/dashboard",
+    label: "Favorites",
+    icon: HeartOutlined,
+    path: "/favorites",
   },
   {
     id: 3,
-    label: "Test 2",
-    icon: MehOutlined,
-    path: "/dashboard",
+    label: "News",
+    icon: FireOutlined,
+    path: "/news",
   },
 ];
 
