@@ -8,6 +8,8 @@ const dateNow = dayjs();
 type DashboardState = {
   dataRange: DateRange;
   demographicsRange: DemographicsRange;
+  movies: Movie[];
+  metrics: DasboardMetrics;
 };
 
 type DateRange = {
@@ -23,6 +25,8 @@ type DemographicsRange = {
 type DashboardActions = {
   setDateRange: (newVal: DateRange) => void;
   setDemographicsRange: (newVal: DemographicsRange) => void;
+  setMovies: (newVal: Movie[]) => void;
+  setMetrics: (newVal: DasboardMetrics) => void;
 };
 
 export const useDashboardStore = create<DashboardState & DashboardActions>()(
@@ -35,12 +39,25 @@ export const useDashboardStore = create<DashboardState & DashboardActions>()(
       from: 18,
       end: 35,
     },
+    movies: [],
+    metrics: {
+      indastryBoxOffice: 0,
+      val: 0,
+      seasomasity: 0,
+      percent: 0,
+    },
 
     setDateRange: (newVal) => {
       set(() => ({ dataRange: newVal }));
     },
     setDemographicsRange: (newVal) => {
       set(() => ({ demographicsRange: newVal }));
+    },
+    setMovies: (newVal) => {
+      set(() => ({ movies: newVal }));
+    },
+    setMetrics: (newVal) => {
+      set(() => ({ metrics: newVal }));
     },
   }))
 );

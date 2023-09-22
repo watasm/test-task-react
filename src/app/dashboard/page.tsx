@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 
 import DashboardScene from '@/scenes/Dashboard';
 
@@ -7,16 +8,24 @@ export const metadata: Metadata = {
 }
 
 async function getMovies() {
-  const res = await fetch('https://api.example.com/...')
+  const res = await fetch(`/api/movies`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  });
 
+  const data = await res.json();
+
+  console.log(data);
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    redirect('/sign-in');
   }
 
-  return res.json()
+  return data
 }
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
   return (
     <DashboardScene />
   )

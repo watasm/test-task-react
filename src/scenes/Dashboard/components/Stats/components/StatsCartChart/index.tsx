@@ -4,25 +4,28 @@ import { FC } from "react";
 import { Pie } from '@ant-design/plots';
 
 type Props = {
+  data: {
+    percent: number
+  }
   width?: number | string
   height?: number | string
 }
 
-const StatsCartChart: FC<Props> = ({ width, height }) => {
-  const data = [
+const StatsCartChart: FC<Props> = ({ data, width, height }) => {
+  const dataConfig = [
     {
       type: '1',
-      value: 75,
+      value: data.percent,
     },
     {
       type: '2',
-      value: 25,
+      value: 100 - data.percent,
     },
   ];
 
   const config = {
     appendPadding: 10,
-    data,
+    data: dataConfig,
     angleField: 'value',
     colorField: 'type',
     radius: 1,

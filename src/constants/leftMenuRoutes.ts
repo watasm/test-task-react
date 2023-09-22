@@ -39,6 +39,6 @@ export const LeftMenuRoutesBottom: Item[] = [
     id: 1,
     label: "Log Out",
     icon: LogoutOutlined,
-    path: "/dashboard",
+    path: "/sign-in",
   },
 ];

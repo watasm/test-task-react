@@ -3,14 +3,18 @@
 import { default as AntTable } from "antd/es/table";
 import { ColumnsType } from "antd/es/table";
 
-type DataType = {
-  key: string;
-  title: string;
-  mpa: string;
-  release: string;
-  open: string;
-  bor: string;
+import { useDashboardStore } from "@/stores/dashboard";
+import dayjs from "dayjs";
+
+const sortReleaseColumn = (a: Movie, b: Movie): number => {
+  const aDate = dayjs(a.release_date)
+  const bDate = dayjs(b.release_date)
+
+
+  return 1;
 }
+
+type DataType = Movie
 
 const columns: ColumnsType<DataType> = [
   {
@@ -20,80 +24,30 @@ const columns: ColumnsType<DataType> = [
     render: (text) => <p>{text}</p>,
   },
   {
-    title: 'MPA',
-    dataIndex: 'mpa',
-    key: 'mpa',
+    title: 'MDA',
+    dataIndex: 'mda',
+    key: 'mda',
     render: (text) => <p className="w-fit px-1 rounded-md bg-blue-300">{text}</p>
   },
   {
     title: 'Release',
-    dataIndex: 'release',
-    key: 'release',
+    dataIndex: 'release_date',
+    key: 'release_date',
+    sorter: sortReleaseColumn,
   },
   {
-    title: 'Open',
-    dataIndex: 'open',
-    key: 'open',
-  },
-  {
-    title: 'BOR',
-    dataIndex: 'bor',
-    key: 'bor',
-  },
-  // {
-  //   title: 'Tags',
-  //   key: 'tags',
-  //   dataIndex: 'tags',
-  //   render: (_, { tags }) => (
-  //     <>
-  //       {tags.map((tag) => {
-  //         let color = tag.length > 5 ? 'geekblue' : 'green';
-  //         if (tag === 'loser') {
-  //           color = 'volcano';
-  //         }
-  //         return (
-  //           <Tag color={color} key={tag}>
-  //             {tag.toUpperCase()}
-  //           </Tag>
-  //         );
-  //       })}
-  //     </>
-  //   ),
-  // },
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
+  }
 ];
 
 const MainTable = () => {
-  const data: DataType[] = [
-    {
-      key: '1',
-      title: 'Title 1',
-      mpa: 'PG',
-      release: '10/4',
-      open: '12$',
-      bor: '124$',
-    },
-    {
-      key: '2',
-      title: 'Title 2',
-      mpa: 'PG',
-      release: '10/4',
-      open: '12$',
-      bor: '124$',
-    },
-    {
-      key: '3',
-      title: 'Title 4',
-      mpa: 'PG',
-      release: '10/4',
-      open: '12$',
-      bor: '124$',
-    }
-  ]
-
+  const movies = useDashboardStore(state => state.movies)
 
   return (
     <div>
-      <AntTable columns={columns} dataSource={data} />
+      <AntTable columns={columns} dataSource={movies} />
     </div>
   )
 }

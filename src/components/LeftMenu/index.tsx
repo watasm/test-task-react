@@ -24,7 +24,7 @@ const itemsBottom: MenuItem[] = LeftMenuRoutesBottom.map(item => {
   return {
     key: item.id,
     icon: <item.icon />,
-    label: item.label,
+    label: <Link href={item.path}>{item.label}</Link>
   } as MenuItem;
 })
 
